@@ -43,7 +43,7 @@
   </div>
   <div class="row">
     <div class="small-9 medium-9 large-9 columns">
-      <h4>Transformation using ESQL in a message flow</h4>
+      <h4>(V10.0.0.3) Business transaction monitoring</h4>
     </div>
     <div class="small-3 medium-3 large-3 columns"> 
       <!--a href="javascript:;" onclick="openHelpSystem('/com.ibm.etools.msgbroker.helphome.doc/help_home_msgbroker.htm');" class="small right helplink">IBM Knowledge Center</a-->
@@ -52,7 +52,7 @@
   <hr>
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      <h5> Learn how to use Business Transaction Monitoring by exploring this simple example. </h5>
+      <h5> Learn how to monitor business transactions on IBM Integration Bus Version 10.0.0.3 </h5>
     </div>
   </div>
   <div class="row content-details">
@@ -63,26 +63,28 @@
       <div class="row">
       
         
-        <p> This tutorial demonstrates a simple Business Transaction monitoring scenario. </p>
-           
+        <p> Note: This Business transaction monitoring tutorial requires WebSphere MQ and a database (DB2® or Oracle). </p>
+      
+        <p> A business transaction is a self-contained business function; for example, the booking of an airline ticket. </p>
+      
+        <p> On IBM Integration Bus, a business transaction may often be implemented using multiple message flows in different applications. </p>
+      
+        <p> Business transaction monitoring involves tracking the lifecycle of a message across the message flows that make up a business transaction. </p>
       
       </div>	  
-		<!-- help links do not work in details page for GA 
-        
+		
 		<div class="row content-details">
 			<h4>Find out more</h4>
 			<ul>
 			
 				
 												
-				<li> <a href="javascript:;" onclick="openHelpSystem('/com.ibm.etools.mft.doc/bi12002_.htm');" title="Knowledge Center link to Developing integration solutions by using applications">Developing integration solutions by using applications</a> </li>
+				<li> <a href="javascript:;" onclick="openHelpSystem('/com.ibm.etools.mft.doc/bj23085_.htm')" title="Knowledge Center link to Business transaction monitoring">Business transaction monitoring</a> </li>
 			   	
 			
 			</ul>
 		</div>
 				  
-        -->
-        
     </div><!-- End Columns -->
     <div class="small-offset-1 small-5 medium-offset-1 medium-5 large-offset-1 large-5 columns">
       <div class="row">
@@ -92,16 +94,16 @@
               <img class="icon-image" src="http://ot4i.github.io/iib-tutorials/images/icons/ibmdesign/clock-time_128.png">
             </div>
             <div class="small-10 large-10 columns">
-              This tutorial takes approximately <b>5 minutes</b>.
+              This tutorial takes approximately <b>1 hour</b>.
             </div>
           </div>
           <div class="row" style="margin-left: 1rem; text-align: center">
             <action>
-              <button class="small radius button" tabindex="0" id="startTutorial" onclick="startTutorialFromDetailsScreen()"> Start Tutorial
-            </button>
+              <div class="small radius button" id="startTutorial" onclick="startTutorialFromDetailsScreen()"> Start Tutorial
+            </div>
             </action>
-            <button class="small radius button" tabindex="0" id="backToGallery" onclick="backToGallery()"> Back To Gallery
-			</button>
+            <div class="small radius button" id="backToGallery" onclick="backToGallery()"> Back To Gallery
+			</div>
           </div>
         </div>
       </div>
@@ -111,9 +113,11 @@
           <ul>
             
             
-              <li>Compute node</li>
+              <li>Business transaction monitoring</li>
             
-              <li>XML parsing and writing</li>
+              <li>Configuring monitoring event sources in the message flow editor</li>
+            
+              <li>Creating a business trasaction definition and monitoring business transactions in the web user interface</li>
             
           </ul>
         </div>
@@ -122,7 +126,7 @@
           <ul>
           
           
-            <li>Use IBM Integration Bus to create and drive a message flow which transforms data using ESQL.</li>
+            <li>Use IBM Integration Bus to monitor business transactions.</li>
           
           </ul>
         </div>
