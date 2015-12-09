@@ -1,0 +1,7 @@
+{
+   "main":{
+      "project" : "BTM_RETAIL_APP",
+      "artefact": "Main_Process_Order_Flow.msgflow",
+      "editor"  : "flow"
+   }
+}
