@@ -84,27 +84,26 @@
 						    
 								<p> <h4>Import projects</h4> </p>
 								
+							
+								<p> Click <span class="uicontrol">Import</span> to import the implementation of a retail solution into your workspace. The solution contains the following components: </p>
+								
 								
 									
 									<ul>
 									
 									
-										<li> Click <span class="icon">Import</span> to import the implementation of a retail solution into your workspace. The solution contains the following: 
+										<li> Application <span class="application">BTM_RETAIL_APP</span> is the entry point. <span class="msgflow">Main_Process_Order_Flow.msgflow</span> routes an incoming message to one of the following applications for further processing depending on the type of request:
 										
 										
 											
 											<ul>
 											
 												
-													<li> Application <span class="application">BTM_RETAIL_APP</span> is the entry point.<br><span class="msgflow">Main_Process_Order_Flow.msgflow</span> routes an incoming message to one of <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span>, <span class="application">BTM_RETAIL_PURCHASE_ITEM_APP</span>, <span class="application">BTM_RETAIL_STOCK_CHECK_APP</span> for further processing depending on the type of request.</li>
+													<li> <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span></li>
 												
-													<li> Application <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> is invoked if the type of request is "orderItem". <span class="msgflow">Order_Item_Request_Flow.msgflow</span> receives the request. <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span> processes the request and <span class="msgflow">Order_Item_Response_Flow.msgflow</span> sends a confirmation.</li>
+													<li> <span class="application">BTM_RETAIL_PURCHASE_ITEM_APP</span></li>
 												
-													<li> Application <span class="application">BTM_RETAIL_PURCHASE_ITEM_APP</span> is invoked if the type of request is "purchaseItem". <span class="msgflow">Purchase_Item_Request_Flow.msgflow</span> receives the request. <span class="msgflow">Process_Payment_Flow.msgflow</span> processes the request and <span class="msgflow">Purchase_Item_Response_Flow.msgflow</span> sends a confirmation.</li>
-												
-													<li> Application <span class="application">BTM_RETAIL_STOCK_CHECK_APP</span> is invoked if the type of request is "stockCheck". <span class="msgflow">Stock_Check_Request_Flow.msgflow</span> receives the request. <span class="msgflow">Check_Stock_Flow.msgflow</span> processes the request and <span class="msgflow">Stock_Check_Response_Flow.msgflow</span> sends a confirmation.</li>
-												
-													<li> Shared library <span class="library">BTM_RETAIL_SHARED_LIBRARY</span> contains the message model used by the solution.</li>
+													<li> <span class="application">BTM_RETAIL_STOCK_CHECK_APP</span></li>
 												
 											
 											</ul>
@@ -112,11 +111,64 @@
 										
 										</li>
 									
-										<li> All message flows have monitoring events configured on a number of their message nodes. <br>For this tutorial, all monitoring events use $Root/XMLNSC/btm_retail/customerNumber as the global correlator. To see an example, open <span class="msgflow">Main_Process_Order_Flow.msgflow</span>, select "Receive Retail Request" node, click the Monitoring tab in the Properties view.
+										<li> Application <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> is invoked if the type of request is "orderItem":
+										
+										
+											
+											<ul>
+											
+												
+													<li> <span class="msgflow">Order_Item_Request_Flow.msgflow</span> receives the request.</li>
+												
+													<li> <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span> processes the request.</li>
+												
+													<li> <span class="msgflow">Order_Item_Response_Flow.msgflow</span> sends a confirmation.</li>
+												
+											
+											</ul>
+											
 										
 										</li>
 									
-										<li> For simplicity, this tutorial will only monitor the messages processed by <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span>. Once you have completed this tutorial, you can explorer further by creating more business transaction definitions using the message flows in the other applications.
+										<li> Application <span class="application">BTM_RETAIL_PURCHASE_ITEM_APP</span> is invoked if the type of request is "purchaseItem":
+										
+										
+											
+											<ul>
+											
+												
+													<li> <span class="msgflow">Purchase_Item_Request_Flow.msgflow</span> receives the request.</li>
+												
+													<li> <span class="msgflow">Process_Payment_Flow.msgflow</span> processes the request.</li>
+												
+													<li> <span class="msgflow">Purchase_Item_Response_Flow.msgflow</span> sends a confirmation.</li>
+												
+											
+											</ul>
+											
+										
+										</li>
+									
+										<li> Application <span class="application">BTM_RETAIL_STOCK_CHECK_APP</span> is invoked if the type of request is "stockCheck":
+										
+										
+											
+											<ul>
+											
+												
+													<li> <span class="msgflow">Stock_Check_Request_Flow.msgflow</span> receives the request.</li>
+												
+													<li> <span class="msgflow">Check_Stock_Flow.msgflow</span> processes the request.</li>
+												
+													<li> <span class="msgflow">Stock_Check_Response_Flow.msgflow</span> sends a confirmation.</li>
+												
+											
+											</ul>
+											
+										
+										</li>
+									
+										<li> Shared library <span class="library">BTM_RETAIL_SHARED_LIBRARY</span> contains the message model used by the solution.
 										
 										</li>
 									
@@ -125,14 +177,23 @@
 									
 								
 							
+								<p> All message flows have monitoring events configured on a number of their message nodes. <br>For this tutorial, all monitoring events use <code>$Root/XMLNSC/btm_retail/customerNumber</code> as the global correlator. To see an example, open <span class="msgflow">Main_Process_Order_Flow.msgflow</span>, select "Receive Retail Request" node, and click the Monitoring tab in the Properties view. </p>
+								
+							
+								<p> For simplicity, this tutorial will only monitor the messages processed by <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span>. Once you have completed this tutorial, you can explorer further by creating more business transaction definitions using the message flows in the other applications. </p>
+								
+							
 								<p> <h4>Create queues</h4> </p>
+								
+							
+								<p> The solution uses WebSphere MQ queues to route messages between the applications. </p>
 								
 								
 									
 									<ol>
 									
 									
-										<li> Create the default IBM Integration Bus queues
+										<li> Create the default IBM Integration Bus queues in WebSphere MQ by completing the following steps:
 										
 										
 											
@@ -141,7 +202,7 @@
 												
 													<li> Open the IBM Integration Console.</li>
 												
-													<li> In the console window, type<br><code>server\sample\wmq\iib_createqueues <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name</li>
+													<li> In the console window, type the following command:<br><code>server\sample\wmq\iib_createqueues <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name.</li>
 												
 											
 											</ol>
@@ -149,16 +210,16 @@
 										
 										</li>
 									
-										<li> Create the queues used by the MQ nodes in this tutorial
+										<li> Create the queues used by the MQ nodes in this tutorial by completing the following steps:
 										
 										
 											
 											<ol>
 											
 												
-													<li> In the console window, type<br><code><span class="cmdname">runmqsc</span> <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name</li>
+													<li> In the console window, type the following command:<br><code><span class="cmdname">runmqsc</span> <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name.</li>
 												
-													<li> Copy and paste the following into the console window to create the queues:<br><code>define qlocal(BTM_RETAIL_INQ) replace<br>define qlocal(BTM_RETAIL_OUTQ) replace<br>define qlocal(BTM_RETAIL_FAILUREQ) replace<br>define qlocal(BTM_RETAIL_UNKNOWN_ORDER_OUTQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_INQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_OUTQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_DESPATCH_INQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_DESPATCH_OUTQ) replace<br>define qlocal(BTM_RETAIL_STOCK_CHECK_INQ) replace<br>define qlocal(BTM_RETAIL_STOCK_CHECK_OUTQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_STOCK_CHECK_INQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_STOCK_CHECK_OUTQ) replace<br>define qlocal(BTM_RETAIL_PURCHASE_ITEM_INQ) replace<br>define qlocal(BTM_RETAIL_PURCHASE_ITEM_OUTQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_PAYMENT_INQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_PAYMENT_OUTQ) replace<br></code></li>
+													<li> Copy and paste the following set of commands into the console window to create the queues:<br><code>define qlocal(BTM_RETAIL_INQ) replace<br>define qlocal(BTM_RETAIL_OUTQ) replace<br>define qlocal(BTM_RETAIL_FAILUREQ) replace<br>define qlocal(BTM_RETAIL_UNKNOWN_ORDER_OUTQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_INQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_OUTQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_DESPATCH_INQ) replace<br>define qlocal(BTM_RETAIL_ORDER_ITEM_DESPATCH_OUTQ) replace<br>define qlocal(BTM_RETAIL_STOCK_CHECK_INQ) replace<br>define qlocal(BTM_RETAIL_STOCK_CHECK_OUTQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_STOCK_CHECK_INQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_STOCK_CHECK_OUTQ) replace<br>define qlocal(BTM_RETAIL_PURCHASE_ITEM_INQ) replace<br>define qlocal(BTM_RETAIL_PURCHASE_ITEM_OUTQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_PAYMENT_INQ) replace<br>define qlocal(BTM_RETAIL_PROCESS_PAYMENT_OUTQ) replace<br></code></li>
 												
 											
 											</ol>
@@ -166,18 +227,18 @@
 										
 										</li>
 									
-										<li> Associate the default integration node with the queue manager
+										<li> Associate the default integration node with the queue manager by completing the following steps:
 										
 										
 											
 											<ol>
 											
 												
-													<li> In the console window, stop the default integration node.<br><code><span class="cmdname">mqsistop</span> -i <span class="varname">TESTNODE_userid</span></code></li>
+													<li> In the console window, stop the default integration node by typing the following command:<br><code><span class="cmdname">mqsistop</span> -i <span class="varname">TESTNODE_userid</span></code></li>
 												
-													<li> Associate the queue manager with the default integration node, <span class="varname">TESTNODE_userid</span><br><code><span class="cmdname">mqsichangebroker</span> TESTNODE_userid -q <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name</li>
+													<li> Associate the queue manager with the default integration node, <span class="varname">TESTNODE_userid</span> by typing the following command:<br><code><span class="cmdname">mqsichangebroker</span> <span class="varname">TESTNODE_userid</span> -q <span class="varname">qmgr</span></code><br>where<br><span class="varname">qmgr</span> is the queue manager name</li>
 												
-													<li> Start the default integration node.<br><code><span class="cmdname">mqsistart</span> <span class="varname">TESTNODE_userid</span></code></li>
+													<li> Start the default integration node by typing the following command:<br><code><span class="cmdname">mqsistart</span> <span class="varname">TESTNODE_userid</span></code></li>
 												
 											
 											</ol>
@@ -190,53 +251,40 @@
 									
 								
 							
-								<p> <h4>Deploy projects</h4> </p>
-								
-								
-									
-									<ul>
-									
-									
-										<li> Drag and drop <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> and <span class="library">BTM_RETAIL_SHARED_LIBRARY</span> onto an integration server of <span class="varname">TESTNODE_userid</span>.
-										
-										</li>
-									
-										<li> Note: <span class="application">BTM_RETAIL_APP</span> will be deployed in a later step.
-										
-										</li>
-									
-									
-									</ul>
-									
+								<p> <h4>Create database</h4> </p>
 								
 							
-								<p> <h4>Create a business transaction definition</h4> </p>
+								<p> The solution requires a database to record and store business transaction data. </p>
 								
 								
 									
 									<ol>
 									
 									
-										<li> Right-click on <span class="varname">TESTNODE_userid</span> in the Integration Nodes view and select <span class="uicontrol">Start Web User Interface</span>.
+										<li> Open a DB2 command window and run the following command to create the MBRECORD database and monitoring events tables:<br><code>db2 -tvf <span class="varname">IIBInstallDir</span>/server/ddl/<span class="varname">db</span>/DataCaptureSchema.sql</code><br>where<br><span class="varname">IIBInstallDir</span> is the location of the IBM Integration Bus installation, and <br><span class="varname">db</span> is either <span class="userinput">db2</span> or <span class="userinput">oracle</span>.<br><b>Note:</b>To customize the database or schema name used by business transaction monitoring, edit the <span class="filepath">DataCaptureSchema.sql</span> file before running the command.
 										
 										</li>
 									
-										<li> Create a business transaction definition<br>In the web user interface, expand <span class="uicontrol">Business -> Business Transactions</span>. Select <span class="uicontrol">Create</span> from the menu to create a new business transaction. Enter <span class="userinput">RetailOrderBTD</span>. Click <span class="uicontrol">OK</span>.
+										<li> In the DB2 command window, run the following command to create the tables for recording and storing business transaction data:<br><code>db2 <span class="varname">IIBInstallDir</span>/server/ddl/<span class="varname">db</span>/BusinessCaptureSchema.sql</code><br><b>Note:</b> If you modified the name of the database in the previous step, you must update the database name in the <span class="filepath">BusinessCaptureSchema.sql</span> file before you run the command.
 										
 										</li>
 									
-										<li> Add message flows to the business transaction definition
+										<li> Define <span class="userinput">MBRECORD</span> as the ODBC data source name (DSN) for the database MBRECORD.<br>Follow the link <span class="uicontrol">Enabling ODBC connections to the databases</span> in the <span class="uicontrol">Find out more</span> section below for instructions on configuring an ODBC data source for your operating system.<br><b>Note:</b> If you modified the name of the database in the previous steps, use the same name for your DSN name in this step.
+										
+										</li>
+									
+										<li> Set a user ID and password for the integration node to use when connecting to the database by completing the following steps:
 										
 										
 											
 											<ol>
 											
 												
-													<li> In the <span class="uicontrol">Define</span> tab of <span class="userinput">RetailOrderBTD</span>, click <span class="uicontrol">Add flow</span> to select the message flows that make up this business transaction.</li>
+													<li> Open the IBM Integration Console.</li>
 												
-													<li> Inside the popup, click <span class="uicontrol">Select application</span>, then click the dropdown and select <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span>. Click <span class="uicontrol">Add</span> to add all the message flows in this application to <span class="userinput">RetailOrderBTD</span>.</li>
+													<li> In the console window, run the following command:<br><code><span class="cmdname">mqsisetdbparms</span> <span class="varname">TESTNODE_userid</span> -n MBRECORD -u <span class="varname">id</span> -p <span class="varname">password</span></code><br>where<br><span class="varname">TESTNODE_userid</span> is the default integration node<br><span class="varname">id</span> and <span class="varname">password</span> are the user ID and password that are used to connect to the MBRECORD database<br></li>
 												
-													<li> Observe that <span class="msgflow">Order_Item_Request_Flow.msgflow</span>, <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span>, and <span class="msgflow">Order_Item_Response_Flow.msgflow</span> are added to the <span class="uicontrol">Business Transaction</span> section.<br>The <span class="icon">warning</span> icon indicates that no start and end events have been defined for this business transaction.</li>
+													<li> Optional: Verify the user id and password for the database is set correctly by running the following command:<br><code><span class="cmdname">mqsireportdbdbparms</span> <span class="varname">TESTNODE_userid</span> -n MBRECORD -u <span class="varname">id</span> -p <span class="varname">password</span></code></li>
 												
 											
 											</ol>
@@ -244,18 +292,16 @@
 										
 										</li>
 									
-										<li> Select the monitoring events that indicate the start, end, and failure of the business transaction definition. In the <span class="uicontrol">Business Transaction Event Definitions</span> section,
+										<li> Restart the integration node by running the following commands in the console window:
 										
 										
 											
 											<ol>
 											
 												
-													<li> Expand <span class="msgflow">Order_Item_Request_Flow.msgflow</span>, flag the "Order Item Request Received" event as the <span class="uicontrol">Start</span> event.</li>
+													<li> <code><span class="cmdname">mqsistop</span> -i <span class="varname">TESTNODE_userid</span></code></li>
 												
-													<li> Expand <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span>, flag the "Item Despatched" event as the <span class="uicontrol">Progress</span> event.</li>
-												
-													<li> Expand <span class="msgflow">Order_Item_Response_Flow.msgflow</span>, flag the "Confirm Item Ordered" event as the <span class="uicontrol">End</span> event.</li>
+													<li> (After the integration node is stopped.) <code><span class="cmdname">mqsistart</span> <span class="varname">TESTNODE_userid</span></code></li>
 												
 											
 											</ol>
@@ -263,7 +309,7 @@
 										
 										</li>
 									
-										<li> Save <span class="userinput">RetailOrderBTD</span>.
+										<li> Optional: Test the connection to the database MBRECORD by running the following command in the console window:<br><code><span class="cmdname">mqsicvp</span> <span class="varname">TESTNODE_userid</span> -n MBRECORD</code>
 										
 										</li>
 									
@@ -319,37 +365,45 @@
 						  	<h4></h4>
 						    
 						    
-								<p> <h4>Prepare database</h4> </p>
+								<p> <h4>Deploy projects</h4> </p>
 								
 								
 									
 									<ol>
 									
 									
-										<li> Run this script to create the database MBRECORD and monitoring events tables:<br><code><span class="varname">IIBInstallDir</span>/server/ddl/<span class="varname">db</span>/DataCaptureSchema.sql</code><br>where<br><span class="varname">IIBInstallDir</span> is the installed location of IBM Integration Bus Version 10.0.0.3, and <br><span class="varname">db</span> is either db2 or oracle.<br><b>Note:</b>To customize the database or schema name used by business transaction monitoring, edit <code>DataCaptureSchema.sql</code> before running it.
+										<li> Drag and drop <span class="library">BTM_RETAIL_SHARED_LIBRARY</span> and <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> onto an integration server of <span class="varname">TESTNODE_userid</span>.<br>Note: <span class="application">BTM_RETAIL_APP</span> will be deployed in a later step.
 										
 										</li>
 									
-										<li> Run this script to create the tables for recording and storing business transaction data:<br><code><span class="varname">IIBInstallDir</span>/server/ddl/<span class="varname">db</span>/BusinessCaptureSchema.sql</code><br><b>Note:</b> If you modified the name of the database in the previous step, you'll need to update the database name in <code>BusinessCaptureSchema.sql</code> before running it.
+									
+									</ol>
+									
+								
+							
+								<p> <h4>Create a business transaction definition</h4> </p>
+								
+								
+									
+									<ol>
+									
+									
+										<li> Right-click on <span class="varname">TESTNODE_userid</span> in the Integration Nodes view and select <span class="uicontrol">Start Web User Interface</span>.
 										
 										</li>
 									
-										<li> Define a ODBC data source name (DSN), <span class="userinput">MBRECORD</span>, for the database MBRECORD.<br>Follow the link <span class="uicontrol">Enabling ODBC connections to the databases</span> in the <span class="uicontrol">Find out more</span> section below for instructions on configuring an ODBC data source for your operating system.<br><b>Note:</b> If you modified the name of the database in the previous steps, use the same name for your DSN name in this step.
-										
-										</li>
-									
-										<li> Set a user id and password for the integration node to use when connecting to the database.
+										<li> Create a business transaction definition in the web user interface by completing the following steps:
 										
 										
 											
 											<ol>
 											
 												
-													<li> Open the IBM Integration Console.</li>
+													<li> Expand <span class="uicontrol">Business -> Business Transactions</span>.</li>
 												
-													<li> In the console window, type<br><code><span class="cmdname">mqsisetdbparms</span> <span class="varname">TESTNODE_userid</span> -n <span class="varname">DSN</span> -u <span class="varname">id</span> -p <span class="varname">password</span></code><br>where<br><span class="varname">TESTNODE_userid</span> is the default integration node<br><span class="varname">DSN</span> is the data source name created in the previous step<br><span class="varname">id</span> and <span class="varname">password</span> are the user id and password used to connect to the database MBRECORD<br></li>
+													<li> Select <span class="uicontrol">Create</span> from the menu to create a new business transaction.</li>
 												
-													<li> Optional: Verify the user id and password for the database is set correctly by typing<br><code><span class="cmdname">mqsireportdbdbparms</span> <span class="varname">TESTNODE_userid</span> -n <span class="varname">DSN</span> -u <span class="varname">id</span> -p <span class="varname">password</span></code></li>
+													<li> Enter <span class="userinput">RetailOrderBTD</span> and click <span class="uicontrol">OK</span>.</li>
 												
 											
 											</ol>
@@ -357,11 +411,47 @@
 										
 										</li>
 									
-										<li> Restart the integration node.<br>In the console window, type<br><code><span class="cmdname">mqsistop</span> -i <span class="varname">TESTNODE_userid</span></code><br>After the default integration node is stopped, type<br><code><span class="cmdname">mqsistart</span> <span class="varname">TESTNODE_userid</span></code>
+										<li> Add message flows to the business transaction definition by completing the following steps:
+										
+										
+											
+											<ol>
+											
+												
+													<li> In the <span class="uicontrol">Define</span> tab of <span class="userinput">RetailOrderBTD</span>, click <span class="uicontrol">Add flow</span> to select the message flows that make up this business transaction.</li>
+												
+													<li> In the "Add message flows" dialog , click <span class="uicontrol">Select application</span>, then click the dropdown menu and select <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span>.</li>
+												
+													<li> Click <span class="uicontrol">Add</span> to add all the message flows in this application to <span class="userinput">RetailOrderBTD</span>.</li>
+												
+													<li> Observe that <span class="msgflow">Order_Item_Request_Flow.msgflow</span>, <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span>, and <span class="msgflow">Order_Item_Response_Flow.msgflow</span> are added to the <span class="uicontrol">Business Transaction</span> section.<br>The <span class="icon">warning</span> icon indicates that no start and end events have been defined for this business transaction.</li>
+												
+											
+											</ol>
+											
 										
 										</li>
 									
-										<li> Optional: Test the connection to the database MBRECORD. <br>In the console window, type<br><code><span class="cmdname">mqsicvp</span> <span class="varname">TESTNODE_userid</span> -n <span class="varname">DSN</span></code>
+										<li> Select the monitoring events that indicate the start, end, and failure of the business transaction definition by completing the following steps in the <span class="uicontrol">Business Transaction Event Definitions</span> section:
+										
+										
+											
+											<ol>
+											
+												
+													<li> Expand <span class="msgflow">Order_Item_Request_Flow.msgflow</span>, flag the "Order Item Request Received" event as the <span class="uicontrol">Start</span> event.</li>
+												
+													<li> Expand <span class="msgflow">Order_Item_Despatch_Flow.msgflow</span>, flag the "Item Despatched" event as the <span class="uicontrol">Progress</span> event.</li>
+												
+													<li> Expand <span class="msgflow">Order_Item_Response_Flow.msgflow</span>, flag the "Confirm Item Ordered" event as the <span class="uicontrol">End</span> event.</li>
+												
+											
+											</ol>
+											
+										
+										</li>
+									
+										<li> Save <span class="userinput">RetailOrderBTD</span>.
 										
 										</li>
 									
@@ -377,23 +467,15 @@
 									<ol>
 									
 									
-										<li> Open the Web User Interface.
-										
-										</li>
-									
-										<li> Expand <span class="uicontrol">Business -> Business Transactions</span>. Select <span class="uicontrol">RetailOrderBTD</span>.
-										
-										</li>
-									
 										<li> Select the <span class="uicontrol">Configure</span> tab. Note that <span class="resource">RetailOrderBTD</span> is not yet configured with a data source.
 										
 										</li>
 									
-										<li> Click <span class="uicontrol">Click here to specify a data source name</span>. Select the data source name <span class="userinput">MBRECORD</span> from the dropdown.
+										<li> Click <span class="uicontrol">Click here to specify a data source name</span> and select the data source name <span class="userinput">MBRECORD</span> from the dropdown menu.
 										
 										</li>
 									
-										<li> Click <span class="uicontrol">Save</span> to save the datasource name. Then click <span class="uicontrol">Resume editing of business transaction RetailOrderBTD</span> to return to the <span class="uicontrol">Configure</span> tab.<br><b>Note:</b> MBRecord will be used to record all the business transactions for this integration node.
+										<li> Click <span class="uicontrol">Save</span> to save the datasource name, and click <span class="uicontrol">Resume editing of business transaction RetailOrderBTD</span> to return to the <span class="uicontrol">Configure</span> tab.<br><b>Note:</b> MBRecord will be used to record all the business transactions for this integration node.
 										
 										</li>
 									
@@ -409,11 +491,11 @@
 									<ol>
 									
 									
-										<li> In the web user interface, expand <span class="uicontrol">Servers -> <span class="varname">server</span> -> Applications -> BTM_RETAIL_ORDER_ITEM_APP</span><br>where<br><span class="varname">server</span> is the integration server where <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> is deployed.
+										<li> In the web user interface, expand <span class="uicontrol">Servers -> <span class="varname">server</span> -> Applications -> BTM_RETAIL_ORDER_ITEM_APP</span><br>where<br><span class="varname">server</span> is the integration server where the <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> application is deployed.
 										
 										</li>
 									
-										<li> Select <span class="uicontrol">Start flow monitoring</span> from the menu of <span class="uicontrol">BTM_RETAIL_ORDER_ITEM_APP</span>.
+										<li> Click the dropdown menu for the <span class="uicontrol">BTM_RETAIL_ORDER_ITEM_APP</span> application and select <span class="uicontrol">Start flow monitoring</span>.
 										
 										</li>
 									
@@ -479,11 +561,15 @@
 									<ol>
 									
 									
-										<li> Open Main_Process_Order_Flow. Click the Flow Exerciser icon <img src="http://ot4i.github.io/ot4i.tutorials//dist/images/icons/iib/startFlowExerciser.png" alt> to start recording the message path through the flow.
+										<li> In the <span class="application">BTM_RETAIL_APP</span>, open the <span class="msgflow">Main_Process_Order_Flow</span> message flow.
 										
 										</li>
 									
-										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> to select a message to send to the flow. Choose <span class="uicontrol">Cookie Monster's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "5555". Click <span class="uicontrol">Send</span>.
+										<li> Click the Flow Exerciser icon <img src="http://ot4i.github.io/ot4i.tutorials//dist/images/icons/iib/startFlowExerciser.png" alt> to start recording the message path through the flow.
+										
+										</li>
+									
+										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> to select a message to send to the flow and choose <span class="uicontrol">Cookie Monster's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "5555". Click <span class="uicontrol">Send</span>.
 										
 										</li>
 									
@@ -491,11 +577,11 @@
 										
 										</li>
 									
-										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> again. Choose <span class="uicontrol">Panda Po's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "5670". Click <span class="uicontrol">Send</span>.
+										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> again and choose <span class="uicontrol">Panda Po's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "5670". Click <span class="uicontrol">Send</span>.
 										
 										</li>
 									
-										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> again. Choose <span class="uicontrol">Winnie the Pooh's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "4785". Click <span class="uicontrol">Send</span>.
+										<li> Click the Send Message icon <img src="http://ot4i.github.io/ot4i.tutorials/dist/images/icons/iib/sendMessage.png" alt> again and choose <span class="uicontrol">Winnie the Pooh's Order</span>. Note the "requestType" is "orderItem" and "customerNumber" is "4785". Click <span class="uicontrol">Send</span>.
 										
 										</li>
 									
@@ -504,7 +590,7 @@
 									
 								
 							
-								<p> All 3 transactions were processed by the message flows in <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> and captured by <span class="resource">RetailOrderBTD</span>. You will now be able to view the results in the Web User Interface. </p>
+								<p> All 3 transactions were processed by the message flows in <span class="application">BTM_RETAIL_ORDER_ITEM_APP</span> and captured by <span class="resource">RetailOrderBTD</span>. You can now view the results in the web user interface. </p>
 								
 							
 								<p> <h4>View the instances of RetailOrderBTD</h4> </p>
@@ -514,23 +600,23 @@
 									<ol>
 									
 									
-										<li> Open the Web User Interface.
+										<li> Open the web user interface.
 										
 										</li>
 									
-										<li> Expand <span class="uicontrol">Business -> Business Transactions</span>. Select <span class="uicontrol">RetailOrderBTD</span>. Select the <span class="uicontrol">View</span> tab.
+										<li> Expand <span class="uicontrol">Business -> Business Transactions</span>, select <span class="uicontrol">RetailOrderBTD</span>, and then select the <span class="uicontrol">View</span> tab.
 										
 										</li>
 									
-										<li> Click <span class="uicontrol">Refresh</span> in the <span class="uicontrol">All instances of RetailOrderBTD</span> section. 3 instances, identified by the global transaction ID "customerNumber", will be shown. All instances have the status of "Ended".
+										<li> Click <span class="uicontrol">Refresh</span> in the <span class="uicontrol">All instsances of RetailOrderBTD</span> section. 3 instances, identified by the global transaction ID "customerNumber", are shown. All instances have the status of "Ended".
 										
 										</li>
 									
-										<li> Click on an instance. The 3 associated events, "Order Item Request Received", "Item Despatched", "Confirm Item Ordered", and their corresponding details will be shown in the <span class="uicontrol">Events</span> section.
+										<li> Click an instance. The 3 associated events, "Order Item Request Received", "Item Despatched", "Confirm Item Ordered", and their corresponding details are shown in the <span class="uicontrol">Events</span> section.
 										
 										</li>
 									
-										<li> Optionally, to show only the instances with a specified global transaction ID, or those that have a particular status, click <span class="uicontrol">Filter</span> in the <span class="uicontrol">All instances of RetailOrderBTD</span> section to specify the filtering criteria.
+										<li> Optionally, to show only the instances with a specified global transaction ID, or those that have a particular status, click <span class="uicontrol">Filter</span> in the <span class="uicontrol">All instsances of RetailOrderBTD</span> section to specify the filtering criteria.
 										
 										</li>
 									
